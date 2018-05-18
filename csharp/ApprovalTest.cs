@@ -14,12 +14,14 @@ namespace csharp
         [Test]
         public void ThirtyDays()
         {
-            StringBuilder fakeoutput = new StringBuilder();
-            Console.SetOut(new StringWriter(fakeoutput));
+            var fakeoutput = new StringBuilder();
+
             Console.SetIn(new StringReader("a\n"));
+            Console.SetOut(new StringWriter(fakeoutput));
 
             Program.Main(new string[] { });
-            String output = fakeoutput.ToString();
+
+            var output = fakeoutput.ToString();
             Approvals.Verify(output);
         }
     }

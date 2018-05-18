@@ -1,0 +1,1 @@
+Commitovat, TDD, kvalita kodu, body navic za specflow
