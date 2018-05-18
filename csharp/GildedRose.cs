@@ -66,20 +66,20 @@ namespace csharp
                             {
                                 if (item.Name != "Sulfuras, Hand of Ragnaros")
                                 {
-                                item.Quality = item.Quality - 1;
+                                    item.Quality = item.Quality - 1;
                                 }
                             }
                         }
                         else
                         {
-                        item.Quality = item.Quality - item.Quality;
+                            item.Quality = item.Quality - item.Quality;
                         }
                     }
                     else
                     {
                         if (item.Quality < 50)
                         {
-                        item.Quality = item.Quality + 1;
+                            item.Quality = item.Quality + 1;
                         }
                     }
                 }
