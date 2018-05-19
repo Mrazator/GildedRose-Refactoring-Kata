@@ -92,8 +92,8 @@ namespace csharp
         }
 
         [TestCase("Conjured Mana Cake", 5, 30, 28)]
-        //[TestCase("Conjured Mana Cake", 0, 50, 46)]
-        //[TestCase("Conjured Mana Cake", -3, 2, -2)]
+        [TestCase("Conjured Mana Cake", 0, 50, 46)]
+        [TestCase("Conjured Mana Cake", -3, 4, 0)]
 
         public void Conjured_AfterUpdate_DegradeTwiceAsFast(string name, int sellIn, int quality, int expectedQuality)
         {
