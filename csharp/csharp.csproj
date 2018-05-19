@@ -62,11 +62,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApprovalTest.cs" />
+    <Compile Include="Factories\QualityStrategyFactory.cs" />
+    <Compile Include="Factories\SellInStrategyFactory.cs" />
     <Compile Include="GildedRose.cs" />
     <Compile Include="GildedRoseTest.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strategies\Quality\AgedBrieQualityStrategy.cs" />
+    <Compile Include="Strategies\Quality\BackstageQualityStrategy.cs" />
+    <Compile Include="Strategies\Quality\DefaultQualityStrategy.cs" />
+    <Compile Include="Strategies\Quality\Common\CommonQualityStrategy.cs" />
+    <Compile Include="Strategies\Quality\ConjuredQualityStrategy.cs" />
+    <Compile Include="Strategies\Quality\Interfaces\IQualityStrategy.cs" />
+    <Compile Include="Strategies\Quality\SulfurasQualityStrategy.cs" />
+    <Compile Include="Strategies\SellIn\DefaultSellInStrategy.cs" />
+    <Compile Include="Strategies\SellIn\Interfaces\ISellInStrategy.cs" />
+    <Compile Include="Strategies\SellIn\SulfurasSellInStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
