@@ -14,50 +14,12 @@ namespace csharp
         {
             foreach (var item in _items)
             {
-                if (item.Name == "Aged Brie" || item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                if (!item.Name.Contains("Sulfuras, Hand of Ragnaros"))
                 {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-
-                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (item.SellIn < 11)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-
-                            if (item.SellIn < 6)
-                            {
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (item.Quality > 0)
-                    {
-                        if (item.Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
+                    ManageQualityByProductType(item);
+                    LowerSellInByOne(item);
                 }
 
-                if (item.Name == "Sulfuras, Hand of Ragnaros")
-                {
-                }
-                else
-                {
-                    item.SellIn = item.SellIn - 1;
-                }
 
                 if (item.SellIn < 0)
                 {
@@ -85,6 +47,67 @@ namespace csharp
                     }
                 }
             }
+        }
+
+        private static void ManageQualityByProductType(Item item)
+        {
+            switch (item.Name)
+            {
+                case "Aged Brie":
+                    IncreaseQualityBy(item);
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    IncreaseBackstageQuality(item);
+                    break;
+                default:
+                    LowerQualityBy(item);
+                    break;
+            }
+        }
+
+        private static void IncreaseQualityBy(Item item, int by = 1)
+        {
+            if (item.Quality + by >= 50)
+            {
+                item.Quality = 50;
+            }
+            else
+            {
+                item.Quality = item.Quality + by;
+            }
+        }
+
+        private static void IncreaseBackstageQuality(Item item)
+        {
+            if (item.SellIn <= 5)
+            {
+                IncreaseQualityBy(item, 3);
+            }
+            else if (item.SellIn <= 10)
+            {
+                IncreaseQualityBy(item, 2);
+            }
+            else
+            {
+                IncreaseQualityBy(item);
+            }
+        }
+
+        private static void LowerQualityBy(Item item, int by = 1)
+        {
+            if (item.Quality - by <= 0)
+            {
+                item.Quality = 0;
+            }
+            else
+            {
+                item.Quality = item.Quality - by;
+            }
+        }
+
+        private static void LowerSellInByOne(Item item)
+        {
+            item.SellIn = item.SellIn - 1;
         }
     }
 }
