@@ -13,9 +13,7 @@ namespace csharp
         [TestCase("Elixir of the Mongoose", 5, 7)]
         public void Item_AfterUpdate_LowersBothValues(string name, int sellIn, int quality)
         {
-            var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
-            var app = new GildedRose(items);
-            app.UpdateQuality();
+            var items = GildedRoseUpdate(name, sellIn, quality);
 
             Assert.AreEqual(--sellIn, items[0].SellIn);
             Assert.AreEqual(--quality, items[0].Quality);
@@ -29,9 +27,7 @@ namespace csharp
         [TestCase("Elixir of the Mongoose", 0, 7)]
         public void Item_SellDatePassed_QualityDegradesTwiceAsFast(string name, int sellIn, int quality)
         {
-            var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
-            var app = new GildedRose(items);
-            app.UpdateQuality();
+            var items = GildedRoseUpdate(name, sellIn, quality);
 
             Assert.AreEqual(quality -2, items[0].Quality);
         }
@@ -44,9 +40,7 @@ namespace csharp
         [TestCase("Elixir of the Mongoose", 0, 0)]
         public void Item_AfterUpdate_QualityIsNeverNegative(string name, int sellIn, int quality)
         {
-            var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
-            var app = new GildedRose(items);
-            app.UpdateQuality();
+            var items = GildedRoseUpdate(name, sellIn, quality);
 
             Assert.AreEqual(0, items[0].Quality);
         }
@@ -58,9 +52,7 @@ namespace csharp
         [TestCase("Backstage passes to a TAFKAL80ETC concert", 150, 49)]
         public void SpecielItem_AfterUpdate_QualityIncreaces(string name, int sellIn, int quality)
         {
-            var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
-            var app = new GildedRose(items);
-            app.UpdateQuality();
+            var items = GildedRoseUpdate(name, sellIn, quality);
 
             Assert.AreEqual(++quality, items[0].Quality);
         }
@@ -73,9 +65,7 @@ namespace csharp
         [TestCase("Backstage passes to a TAFKAL80ETC concert", 11, 50)]
         public void Item_AfterUpdate_QualityIsNeverMoreThanFifty(string name, int sellIn, int quality)
         {
-            var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
-            var app = new GildedRose(items);
-            app.UpdateQuality();
+            var items = GildedRoseUpdate(name, sellIn, quality);
 
             Assert.AreEqual(50, items[0].Quality);
         }
@@ -85,9 +75,7 @@ namespace csharp
         [TestCase("Sulfuras, Hand of Ragnaros", 0, 80)]
         public void Sulfuras_AfterUpdate_QualitAndSellInStaysTheSame(string name, int sellIn, int quality)
         {
-            var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
-            var app = new GildedRose(items);
-            app.UpdateQuality();
+            var items = GildedRoseUpdate(name, sellIn, quality);
 
             Assert.AreEqual(sellIn, items[0].SellIn);
             Assert.AreEqual(quality, items[0].Quality);
@@ -98,11 +86,28 @@ namespace csharp
         [TestCase("Backstage passes to a TAFKAL80ETC concert", 10, 3, 5)]
         public void BackstagePasses_SellInValueApproaches_SpecialQualityBehaviour(string name, int sellIn, int quality, int expectedQuality)
         {
+            var items = GildedRoseUpdate(name, sellIn, quality);
+
+            Assert.AreEqual(expectedQuality, items[0].Quality);
+        }
+
+        [TestCase("Conjured Mana Cake", 5, 30, 28)]
+        //[TestCase("Conjured Mana Cake", 0, 50, 46)]
+        //[TestCase("Conjured Mana Cake", -3, 2, -2)]
+
+        public void Conjured_AfterUpdate_DegradeTwiceAsFast(string name, int sellIn, int quality, int expectedQuality)
+        {
+            var items = GildedRoseUpdate(name, sellIn, quality);
+
+            Assert.AreEqual(expectedQuality, items[0].Quality);
+        }
+
+        private List<Item> GildedRoseUpdate(string name, int sellIn, int quality)
+        {
             var items = new List<Item> { new Item { Name = name, SellIn = sellIn, Quality = quality } };
             var app = new GildedRose(items);
             app.UpdateQuality();
-
-            Assert.AreEqual(expectedQuality, items[0].Quality);
+            return items;
         }
     }
 }
